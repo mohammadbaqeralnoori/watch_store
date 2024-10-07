@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:watch_store/components/theme.dart';
+import 'package:watch_store/route/names.dart';
+import 'package:watch_store/route/routes.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      home: Container(),
+      debugShowCheckedModeBanner: false,
+      title: 'Watch Store',
+      theme: lightTheme(),
+      initialRoute: ScreenNames.root,
+      routes: routes,
     );}}

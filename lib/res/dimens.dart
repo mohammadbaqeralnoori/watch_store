@@ -1,8 +1,8 @@
 
 
-abstract class Dimens {
+abstract class AppDimens {
 
-  Dimens._();
+  AppDimens._();
 
   static const double small = 8;
   static const double meduim = 12;
