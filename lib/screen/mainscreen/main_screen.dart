@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/colors.dart';
-import 'package:watch_store/screen/mainscreen/bascket_screen.dart';
+import 'package:watch_store/screen/mainscreen/cart_screen.dart';
 import 'package:watch_store/screen/mainscreen/home_screen.dart';
 import 'package:watch_store/screen/mainscreen/profile_screen.dart';
 import 'package:watch_store/widgets/btm_nav_item.dart';
+import 'package:watch_store/widgets/count_container.dart';
 
 class BtmNavScreenIndex {
   BtmNavScreenIndex._();
@@ -14,37 +15,34 @@ class BtmNavScreenIndex {
 }
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key});
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<int> _routeHistory = [BtmNavScreenIndex.home];
+  final List<int> _routeHistory = [BtmNavScreenIndex.home];
 
   int selectedIndex = BtmNavScreenIndex.home;
   final GlobalKey<NavigatorState> _homeKey = GlobalKey();
   final GlobalKey<NavigatorState> _basketKey = GlobalKey();
   final GlobalKey<NavigatorState> _profileKey = GlobalKey();
 
-
-
   late final map = {
-    BtmNavScreenIndex.home : _homeKey,
-    BtmNavScreenIndex.basket : _basketKey,
-    BtmNavScreenIndex.profile : _profileKey,
+    BtmNavScreenIndex.home: _homeKey,
+    BtmNavScreenIndex.basket: _basketKey,
+    BtmNavScreenIndex.profile: _profileKey,
   };
 
-
-  Future<bool> _onWillPop () async{
+  Future<bool> _onWillPop() async {
     if (map[selectedIndex]!.currentState!.canPop()) {
       map[selectedIndex]!.currentState!.pop();
     } else if (_routeHistory.length > 1) {
-       setState(() {
-         _routeHistory.removeLast();
-         selectedIndex = _routeHistory.last;
-       });
+      setState(() {
+        _routeHistory.removeLast();
+        selectedIndex = _routeHistory.last;
+      });
     }
     // if (_homeKey.currentState!.canPop()) {
     //   _homeKey.currentState!.pop();
@@ -62,6 +60,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     double btmNavHeight = size.height * 0.1;
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
@@ -83,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
                     Navigator(
                       key: _basketKey,
                       onGenerateRoute: (settings) => MaterialPageRoute(
-                          builder: (context) => const BascketScreen()),
+                          builder: (context) => const CartScreen()),
                     ),
                     Navigator(
                       key: _profileKey,
@@ -109,12 +108,18 @@ class _MainScreenState extends State<MainScreen> {
                           isActive: selectedIndex == BtmNavScreenIndex.profile,
                           onTap: () => btmNavOnPressed(
                               index: BtmNavScreenIndex.profile)),
-                      BtmNavItem(
-                          iconSvgPath: Assets.svg.cart,
-                          text: "سبد خرید",
-                          isActive: selectedIndex == BtmNavScreenIndex.basket,
-                          onTap: () =>
-                              btmNavOnPressed(index: BtmNavScreenIndex.basket)),
+                      Stack(
+                        children: [
+                          BtmNavItem(
+                              iconSvgPath: Assets.svg.cart,
+                              text: "سبد خرید",
+                              isActive:
+                                  selectedIndex == BtmNavScreenIndex.basket,
+                              onTap: () => btmNavOnPressed(
+                                  index: BtmNavScreenIndex.basket)),
+                         countContainer(),
+                        ],
+                      ),
                       BtmNavItem(
                           iconSvgPath: Assets.svg.home,
                           text: "خانه",

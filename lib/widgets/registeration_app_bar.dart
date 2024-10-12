@@ -13,13 +13,11 @@ class RegisterationAppBar extends StatelessWidget implements PreferredSizeWidget
 
   @override
   Widget build(BuildContext context) {
-    return PreferredSize(preferredSize: Size(size.width, size.height*0.1), child: Container(
-      child: Row(
-        children: [
-          IconButton(onPressed: (() => Navigator.pop(context)), icon: const Icon(Icons.arrow_back)),
-          const Text(AppStrings.register, style: AppTextStyles.title,)
-        ],
-      ),
+    return PreferredSize(preferredSize: Size(size.width, size.height*0.1), child: Row(
+      children: [
+        IconButton(onPressed: (() => Navigator.pop(context)), icon: const Icon(Icons.arrow_back)),
+        const Text(AppStrings.register, style: AppTextStyles.title,)
+      ],
     ));
   }
   

@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                           reverse: true,
                           itemBuilder: (context, index) => 
                           
-                          ProductItem(productName: "productName", price: 200, time: 100,discont: 30,)),
+                          const ProductItem(productName: "productName", price: 200, time: 100,discont: 30,)),
                     ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),

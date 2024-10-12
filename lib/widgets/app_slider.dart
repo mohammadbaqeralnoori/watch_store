@@ -30,7 +30,7 @@ class _AppSliderState extends State<AppSlider> {
   final List<Widget> items = imgList
       .map(
         (e) => Padding(
-          padding: EdgeInsets.all(AppDimens.meduim),
+          padding: const EdgeInsets.all(AppDimens.meduim),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(AppDimens.meduim),
               child: Image.network(
